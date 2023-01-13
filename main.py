@@ -2,15 +2,15 @@
 
 import logging
 from pytube import YouTube
-from pytube.cli import on_progress
+from tkinter import *
+from tkinter import ttk
+
 import os
-import time
 
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(message)s - %(asctime)s')
 logging.disable()
 
 os.chdir(r'C:\Users\Admin\Downloads')
-link = input('Paste the link here, Click ENTER to download\n')
 
 
 def percent(tem, total):
@@ -30,8 +30,33 @@ def progress_func(stream, _chunk, bytes_remaining):
     perc = str(percent(downloaded, size)) + ' % '
 
 
-yt = YouTube(link, on_progress_callback=progress_func)
-download_check = yt.streams.filter(progressive=True, file_extension='mp4')\
-    .order_by('resolution').desc().first().download()
-if download_check:
-    print('Download completed', download_check)
+def download():
+    yt = YouTube(link.get(), on_progress_callback=progress_func)
+    download_check = yt.streams.filter(progressive=True, file_extension='mp4')\
+        .order_by('resolution').desc().first().download()
+    if download_check:
+        print('Download completed', download_check)
+
+
+root = Tk()
+root.title('Video downloader')
+root.geometry("600x400")
+mainframe = ttk.Frame(root, padding='24 24 24 24')
+img = PhotoImage(file='C:\\Users\\Admin\\Downloads\\youtube.png')
+image = img.subsample(2, 2)
+mainframe.grid(column=0, row=0)
+link = StringVar()
+
+ttk.Label(mainframe, text="Collez le lien et appuyer sur Download pour telecharger").grid(column=0, row=1, sticky='we')
+
+ttk.Label(mainframe, image=image).grid(column=0, row=0)
+link_entry = ttk.Entry(mainframe, textvariable=link)
+link_entry.grid(column=0, row=2, sticky='we')
+download_btn = ttk.Button(mainframe, text='Download', command=download)
+download_btn.grid(column=0, row=3, sticky='w')
+
+for child in mainframe.winfo_children():
+    child.grid_configure(padx=10, pady=10)
+
+root.bind('<Return>', download)
+root.mainloop()
