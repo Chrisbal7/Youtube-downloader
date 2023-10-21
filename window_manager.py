@@ -2,7 +2,12 @@
 
 import tkinter as tk
 
-BACKGROUND = ""
+
+blue = "#5490f2"
+white = "#F0EFF0"
+red = "D7222C"
+
+BACKGROUND = white
 FOREGROUND = ""
 
 
@@ -26,7 +31,16 @@ def label(row, col, text):
 window = tk.Tk()
 window.title("uMate")
 # Create an icon for the app, when running
-logo = tk.PhotoImage(file="images/logo.png")
-window.iconphot(logo)
+umate_img = tk.PhotoImage(file="images/logo.png")
+logo= umate_img.subsample(1, 1)
+window.wm_iconphoto(True, logo)
+
+
+# Create frames
+download_frame = tk.Frame(window, background=BACKGROUND)
+download_frame.grid(row=0, column=0)
+
+files_frame = tk.Frame(window, background=BACKGROUND)
+files_frame.grid(row=0, column=1)
 
 window.mainloop()
