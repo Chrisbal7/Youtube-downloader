@@ -1,21 +1,26 @@
 #! python3
 
 import logging
-from pytube import YouTube
-from tkinter import *
 from tkinter import ttk
-
+import threading 
+import pyperclip
 import os
+from pytube import YouTube
+
+
 
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(message)s - %(asctime)s')
 logging.disable()
 
-os.chdir(r'C:\Users\Admin\Downloads')
+# todo set the default download directory to downloads if there is no configurations 
+def set_download_dir():
+    os.chdir(r'C:\Users\Admin\Downloads')
+    
 
-
+# This function return the percentage based on two numbers
 def percent(tem, total):
-    percentage = ((float(tem) / float(total)) * 100)
-    return int(percentage)
+    percentage = int((float(tem) / float(total)) * 100)
+    return percentage
 
 
 perc = ''

@@ -1,0 +1,7 @@
+background color: 
+foreground color:
+color palettes: 
+BACKGROUND = 
+blue = "#5490f2"
+white = "#F0EFF0"
+red = "D7222C"
